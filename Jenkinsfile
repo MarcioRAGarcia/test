@@ -26,7 +26,7 @@ def getImageName(String image) {
 }
 
 pipeline{
-    agent none
+    agent master
 
     options {
         skipDefaultCheckout true
