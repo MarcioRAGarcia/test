@@ -20,12 +20,8 @@ import groovy.transform.Field
     --runtime=nvidia
 """
 
-def getImageTag {
-    return sh(script: "echo $(pwd) | shasum | cut -c1-6", returnStdout: true).trim()    
-}
-
 def getImageName(String image) {
-    image_tag = getImageTag()
+    image_tag = sh(script: "echo $(pwd) | shasum | cut -c1-6", returnStdout: true).trim()
     return "${image}:${image_tag}"
 }
 
