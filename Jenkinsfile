@@ -36,8 +36,6 @@ pipeline{
         stage("Container Build") {
             steps {
                 script {
-                    scm_variables = checkout scm
-                    missing_images = loadDockerImages()
 
                     for (image in images) {
                         image_context = images[image]
