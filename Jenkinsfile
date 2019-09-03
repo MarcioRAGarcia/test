@@ -20,8 +20,6 @@ import groovy.transform.Field
     --runtime=nvidia
 """
 
-@Field def scm_variables
-
 def getImageTag {
     return sh(script: "echo $(pwd) | shasum | cut -c1-6", returnStdout: true).trim()    
 }
