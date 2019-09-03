@@ -33,35 +33,7 @@ pipeline{
     }
 
     stages {
-        stage("Clean Workspace") {
-            agent {
-                docker {
-                    image "ubuntu:16.04"
-                    args "--user root"
-                    label "test"
-                }
-            }
-        }
-        stage("Checkout") {
-            agent {
-                docker {
-                    image "ubuntu:16.04"
-                    label "test"
-                }
-            }
-            steps {
-                script {
-                    recursiveCheckout()
-                }
-            }
-        }
         stage("Container Build") {
-            agent {
-                dockerfile {
-                    args "--group-add docker -v /var/run/docker.sock:/var/run/docker.sock"
-                    label "test"
-                }
-            }
             steps {
                 script {
                     scm_variables = checkout scm
