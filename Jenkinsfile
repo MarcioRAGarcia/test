@@ -15,16 +15,6 @@ import groovy.transform.Field
     "image3"
 ]
 
-
-@Field def dockerfile_args = """
-    --runtime=nvidia
-"""
-
-def getImageName(String image) {
-    image_tag = sh(script: "echo \$(pwd) | shasum | cut -c1-6", returnStdout: true).trim()
-    return "${image}:${image_tag}"
-}
-
 pipeline{
     agent any
 
@@ -39,7 +29,8 @@ pipeline{
 
                     for (image in images) {
                         image_context = images[image]
-                        image_name = getImageName(image)
+			image_tag = sh(script: "echo \$(pwd) | shasum | cut -c1-6", returnStdout: true).trim()
+                        image_name = "${image}:${image_tag}"
 
                         if (image in requires_libs) {
                             sh (script: "echo \${image}")
